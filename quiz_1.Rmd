@@ -1,0 +1,118 @@
+---
+title: "Data Capstone Project - Quiz 1"
+author: "Ihar Haltsou"
+date: "6/14/2018"
+output: html_document
+---
+
+This is firts Quiz of the Data Capstone Project. I would like to redo it because my first try was two years ago. It will be better for me to recap things in my head before I will moving further. 
+
+I will use prepared ahead utils files [*requirements.R*](https://github.com/riversy/data-science-capstone2/blob/master/utils/requirements.R) and [*data_fetcher.R*](https://github.com/riversy/data-science-capstone2/blob/master/utils/data_fetcher.R). File **requirements.R** install all necessary dependencies of the project. File **data_fetcher.R** ensure, that source data is downloaded and unzipped. It also includes all necessary functions to load data from file.  
+
+```{r face_dependency_source, warning=FALSE, include=FALSE, results='hide'}
+source('utils/data_fetcher.R')
+source('utils/logger.R')
+Logger$silent <- TRUE
+ensure_data()
+require(purrr)
+require(dplyr)
+source('utils/constants.R')
+```
+
+### 1. The en_US.blogs.txt file is how many megabytes?
+
+```{r answer_1, cache=TRUE}
+file_name <- get_file_name_in_data_set_folder("blogs")
+
+file_size_bites <- file.size(file_name)
+file_size_mb <- file_size_bites / 1024^2
+
+sprintf("Size of en_US.blogs.txt is %.2f Mb", file_size_mb)
+```
+
+### 2. The en_US.twitter.txt has how many lines of text?
+
+
+```{r answer_2, cache=TRUE}
+twitter_lines <- get_raw_data("twitter")
+
+twitter_lines_qty <- length(twitter_lines)
+
+sprintf("There are %s lines in en_US.twitter.txt", twitter_lines_qty)
+```
+
+### 3. What is the length of the longest line seen in any of the three en_US data sets?
+
+```{r answer_3, cache=TRUE}
+
+data_set_names_to_extract
+data_set_of_file_names <- unlist(
+  data_set_names_to_extract %>% map(function(name){
+    get_file_name_in_data_set_folder(name)
+  })
+)
+
+data_set_of_max_lenght <- unlist(
+  data_set_names_to_extract %>% map(function(name){
+    data_set_lines <- get_raw_data(name)
+    max(nchar(data_set_lines))
+  })
+)
+
+max_lenght_data <- data.frame(data_set_of_file_names, data_set_of_max_lenght)
+colnames(max_lenght_data) <- c('file', 'max_length')
+
+max_lenght_line_data_set <- max_lenght_data %>% arrange(desc(max_length)) %>% top_n(1)
+
+sprintf(
+  "The longest line is in %s file and it's length is %s chars.", 
+  max_lenght_line_data_set$file,
+  max_lenght_line_data_set$max_length
+)
+```
+
+
+### 4. In the en_US twitter data set, if you divide the number of lines where the word "love" (all lowercase) occurs by the number of lines the word "hate" (all lowercase) occurs, about what do you get?
+
+
+```{r answer_4, cache=TRUE}
+twitter_lines <- get_raw_data('twitter')
+
+love_lines <- twitter_lines[grep("love", twitter_lines)]
+love_lines_qty <- length(love_lines)
+
+hate_lines <- twitter_lines[grep("hate", twitter_lines)]
+hate_lines_qty <- length(hate_lines)
+
+love_to_hate_value <- love_lines_qty / hate_lines_qty
+
+sprintf("The value we are looking for is %.0f.", love_to_hate_value)
+```
+
+### 5. The one tweet in the en_US twitter data set that matches the word "biostats" says what?
+
+```{r answer_5, cache=TRUE}
+twitter_lines <- get_raw_data('twitter')
+
+biostats_line <- twitter_lines[grep("biostats", twitter_lines)]
+
+sprintf("The line we are looking for is '%s'", biostats_line)
+
+```
+
+
+### 6. How many tweets have the exact characters "A computer once beat me at chess, but it was no match for me at kickboxing". (I.e. the line matches those characters exactly.)
+
+
+```{r answer_6, cache=TRUE}
+twitter_lines <- get_raw_data('twitter')
+
+line_for_search = "A computer once beat me at chess, but it was no match for me at kickboxing"
+
+search_results <- twitter_lines[which(twitter_lines == line_for_search)]
+search_results_qty <- length(search_results)
+
+sprintf("There are %s tweets with text '%s' exact.", search_results_qty, line_for_search)
+```
+
+
