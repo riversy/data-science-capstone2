@@ -71,4 +71,45 @@ ensure_data <- function() {
   ensure_data_set_files()
 }
 
+#
+# Retrieves data by DataSet name. All data combined into one dictionary. 
+# If parameter 'name' is empty it will load all known DataSets.
+#
+get_raw_data <- function(data_set_name = "") {
+  sys_time <- Sys.time()
+  
+  Logger$info("Loading Raw Data")
+  
+  if (data_set_name != "") {
+    
+    Logger$info( sprintf("Loading '%s' Data Set...", data_set_name) )
+    names <- c(data_set_name)
+  } else {
+    
+    Logger$info("Loading Everything...")
+    names <- data_set_names_to_extract
+  }
+  
+  lines <- c()
+  for (name in names) {
+    
+    file_path <- get_file_name_in_data_set_folder(name)
+    connection <- file(file_path)
+    data.lines <- readLines(connection, encoding = 'UTF-8', skipNul = TRUE)
+    close(connection)
+    lines <- c(lines, data.lines)
+  }
+  
+  Logger$info("OK")
+  
+  elapsed_time <- Sys.time() - sys_time
+  Logger$debug(sprintf("Operation took %s seconds.", elapsed_time))
+  
+  lines
+}
+
+
 ensure_data()
+news_raw_lines <- get_raw_data('news')
+blogs_raw_lines <- get_raw_data('blogs')
+twitter_raw_lines <- get_raw_data('twitter')
