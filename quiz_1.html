@@ -133,15 +133,19 @@ $(document).ready(function () {
 <div id="the-en_us.blogs.txt-file-is-how-many-megabytes" class="section level3">
 <h3>1. The en_US.blogs.txt file is how many megabytes?</h3>
 <pre class="r"><code>file_name &lt;- get_file_name_in_data_set_folder(&quot;blogs&quot;)
+
 file_size_bites &lt;- file.size(file_name)
 file_size_mb &lt;- file_size_bites / 1024^2
+
 sprintf(&quot;Size of en_US.blogs.txt is %.2f Mb&quot;, file_size_mb)</code></pre>
 <pre><code>## [1] &quot;Size of en_US.blogs.txt is 200.42 Mb&quot;</code></pre>
 </div>
 <div id="the-en_us.twitter.txt-has-how-many-lines-of-text" class="section level3">
 <h3>2. The en_US.twitter.txt has how many lines of text?</h3>
 <pre class="r"><code>twitter_lines &lt;- get_raw_data(&quot;twitter&quot;)
+
 twitter_lines_qty &lt;- length(twitter_lines)
+
 sprintf(&quot;There are %s lines in en_US.twitter.txt&quot;, twitter_lines_qty)</code></pre>
 <pre><code>## [1] &quot;There are 2360148 lines in en_US.twitter.txt&quot;</code></pre>
 </div>
@@ -176,12 +180,39 @@ max_lenght_line_data_set &lt;- max_lenght_data %&gt;% arrange(desc(max_length)) 
 </div>
 <div id="in-the-en_us-twitter-data-set-if-you-divide-the-number-of-lines-where-the-word-love-all-lowercase-occurs-by-the-number-of-lines-the-word-hate-all-lowercase-occurs-about-what-do-you-get" class="section level3">
 <h3>4. In the en_US twitter data set, if you divide the number of lines where the word “love” (all lowercase) occurs by the number of lines the word “hate” (all lowercase) occurs, about what do you get?</h3>
+<pre class="r"><code>twitter_lines &lt;- get_raw_data('twitter')
+
+love_lines &lt;- twitter_lines[grep(&quot;love&quot;, twitter_lines)]
+love_lines_qty &lt;- length(love_lines)
+
+hate_lines &lt;- twitter_lines[grep(&quot;hate&quot;, twitter_lines)]
+hate_lines_qty &lt;- length(hate_lines)
+
+love_to_hate_value &lt;- love_lines_qty / hate_lines_qty
+
+sprintf(&quot;The value we are looking for is %.0f.&quot;, love_to_hate_value)</code></pre>
+<pre><code>## [1] &quot;The value we are looking for is 4.&quot;</code></pre>
 </div>
 <div id="the-one-tweet-in-the-en_us-twitter-data-set-that-matches-the-word-biostats-says-what" class="section level3">
 <h3>5. The one tweet in the en_US twitter data set that matches the word “biostats” says what?</h3>
+<pre class="r"><code>twitter_lines &lt;- get_raw_data('twitter')
+
+biostats_line &lt;- twitter_lines[grep(&quot;biostats&quot;, twitter_lines)]
+
+sprintf(&quot;The line we are looking for is '%s'&quot;, biostats_line)</code></pre>
+<pre><code>## [1] &quot;The line we are looking for is 'i know how you feel.. i have biostats on tuesday and i have yet to study =/'&quot;</code></pre>
 </div>
 <div id="how-many-tweets-have-the-exact-characters-a-computer-once-beat-me-at-chess-but-it-was-no-match-for-me-at-kickboxing.-i.e.-the-line-matches-those-characters-exactly." class="section level3">
 <h3>6. How many tweets have the exact characters “A computer once beat me at chess, but it was no match for me at kickboxing”. (I.e. the line matches those characters exactly.)</h3>
+<pre class="r"><code>twitter_lines &lt;- get_raw_data('twitter')
+
+line_for_search = &quot;A computer once beat me at chess, but it was no match for me at kickboxing&quot;
+
+search_results &lt;- twitter_lines[which(twitter_lines == line_for_search)]
+search_results_qty &lt;- length(search_results)
+
+sprintf(&quot;There are %s tweets with text '%s' exact.&quot;, search_results_qty, line_for_search)</code></pre>
+<pre><code>## [1] &quot;There are 3 tweets with text 'A computer once beat me at chess, but it was no match for me at kickboxing' exact.&quot;</code></pre>
 </div>
 
 
