@@ -109,7 +109,3 @@ get_raw_data <- function(data_set_name = "") {
 }
 
 
-ensure_data()
-news_raw_lines <- get_raw_data('news')
-blogs_raw_lines <- get_raw_data('blogs')
-twitter_raw_lines <- get_raw_data('twitter')
