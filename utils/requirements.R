@@ -1,6 +1,8 @@
 
 list_of_libs_to_ensure <- c(
-  "loggit"
+  'loggit',
+  'purrr',
+  'dplyr'
 )
 
 installed_packages = installed.packages()

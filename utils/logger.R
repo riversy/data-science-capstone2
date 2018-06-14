@@ -4,14 +4,20 @@ library("R6")
 # Init CLass
 Logger <- R6Class("Logger")
 
+Logger$silent <- FALSE
+
 # Init Static Method 
 # for Info message
 Logger$info <- function(message) {
-  loggit("INFO", message)
+  if (!Logger$silent) {
+    loggit("INFO", message)  
+  }
 }
 
 # Init Static Method 
 # for Debug message
 Logger$debug <- function(message) {
-  loggit("DEBUG", message)
+  if (!Logger$silent) {
+    loggit("DEBUG", message)
+  }
 }
