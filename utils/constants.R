@@ -1,7 +1,8 @@
 #
 # Data fetcher
 #
-data_set_folder_name = "data_set"
+data_set_folder_name = 'data_set'
+dictionary_folder_name = 'dictionary'
 source_file_name = sprintf("%s/Coursera-SwiftKey.zip", data_set_folder_name)
 source_url = "https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip"
 

@@ -108,4 +108,29 @@ get_raw_data <- function(data_set_name = "") {
   lines
 }
 
+get_dictionary_file_name <- function(dictionary_name) {
+  sprintf("%s/%s.txt", dictionary_folder_name, dictionary_name)
+}
 
+get_dictionary_content <- function(dictionary_name){
+  
+  sys_time <- Sys.time()
+  
+  Logger$info(
+    sprintf("Loading '%s' dictionary data", dictionary_name)
+  )
+  
+  file_path <- get_dictionary_file_name(dictionary_name)
+  connection <- file(file_path)
+  data.lines <- readLines(connection, encoding = 'UTF-8', skipNul = TRUE)
+  close(connection)
+  lines <- c(lines, data.lines)
+  
+  Logger$info("OK")
+  
+  elapsed_time <- Sys.time() - sys_time
+  Logger$debug(sprintf("Operation took %s seconds.", elapsed_time))
+  
+  lines
+  
+}
