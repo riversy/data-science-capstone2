@@ -8,7 +8,8 @@ list_of_libs_to_ensure <- c(
   'ggplot2',      # this is a great tool for plots drawing
   'pander',       # this is table printer for Rmd
   'RColorBrewer', # this is a color pallet. I will use it to get more beautiful plots
-  'Hmisc'         # this package is required for capitalize function
+  'Hmisc',        # this package is required for capitalize function,
+  'readr'         # this package contains funcitons for chunked reading
 )
 
 installed_packages = installed.packages()

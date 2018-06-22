@@ -125,6 +125,8 @@ copy_data <- function(name_from, name_to, label = ''){
     write_lines(lines, write_to_file_name, append = TRUE)
   }) 
 
+  elapsed_time <- Sys.time() - sys_time
+  
   Logger$debug(sprintf("Processing step took %s seconds.", elapsed_time))
 }
 
