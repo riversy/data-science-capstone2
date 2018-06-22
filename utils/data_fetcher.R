@@ -132,5 +132,8 @@ get_dictionary_content <- function(dictionary_name){
   Logger$debug(sprintf("Operation took %s seconds.", elapsed_time))
   
   lines
-  
 }
+
+
+
+
