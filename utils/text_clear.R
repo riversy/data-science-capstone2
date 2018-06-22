@@ -77,12 +77,14 @@ clean_text_data <- function(text_corpus, profanity_words = c()) {
     item <- paste(item, collapse = ' ')
     
     # Change other popular shortcuts on sentence start 
-    item <- gsub('^don t', 'do not', item)
-    item <- gsub('^won t', 'will not', item)
-    item <- gsub('^it s', 'it is', item)
-    item <- gsub('^isn t', 'is not', item)
-    item <- gsub('^i n', 'i am not', item)
-    item <- gsub('^i d', 'i would', item)
+    item <- gsub('(^|\\s)don t', '\\1do not', item)
+    item <- gsub('(^|\\s)won t', '\\1will not', item)
+    item <- gsub('(^|\\s)wouldn t', '\\1would not', item)
+    item <- gsub('(^|\\s)shouldn t', '\\1should not', item)
+    item <- gsub('(^|\\s)it s', '\\1it is', item)
+    item <- gsub('(^|\\s)isn t', '\\1is not', item)
+    item <- gsub('(^|\\s)i n', '\\1i am not', item)
+    item <- gsub('(^|\\s)i d', '\\1i would', item)
     
     item
   })
