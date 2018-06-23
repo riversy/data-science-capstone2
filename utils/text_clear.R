@@ -41,7 +41,6 @@ clean_text_data <- function(text_corpus, profanity_words = c()) {
     item <- replace(item, item=='re', 'are')
     item <- replace(item, item=='ve', 'have')
     item <- replace(item, item=='u', 'you')
-    item <- replace(item, item=='cant', 'can not')
     item <- replace(item, item=='im', 'i am')
     item <- replace(item, item=='its', 'it is')
     item <- replace(item, item=='thats', 'that is')
@@ -83,8 +82,10 @@ clean_text_data <- function(text_corpus, profanity_words = c()) {
     item <- gsub('(^|\\s)shouldn t', '\\1should not', item)
     item <- gsub('(^|\\s)it s', '\\1it is', item)
     item <- gsub('(^|\\s)isn t', '\\1is not', item)
-    item <- gsub('(^|\\s)i n', '\\1i am not', item)
+    item <- gsub('(^|\\s)i m', '\\1i am not', item)
     item <- gsub('(^|\\s)i d', '\\1i would', item)
+    item <- gsub('(^|\\s)can t', '\\1can not', item)
+    item <- gsub('(^|\\s)ain t', '\\1am not', item)
     
     item
   })
