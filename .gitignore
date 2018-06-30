@@ -36,7 +36,9 @@ vignettes/*.pdf
 rsconnect/
 .Rproj.user
 
+data_table/*
 data_set/Coursera-SwiftKey.zip
 data_set/*.txt
+!.gitkeep
 *.DS_Store
 .idea

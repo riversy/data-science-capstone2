@@ -8,4 +8,4 @@ source_url = "https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera
 
 locales_to_extract <- c("en_US")
 data_set_names_to_extract <- c("blogs", "news", "twitter")
-
+max_n_grams <- 3

@@ -18,10 +18,11 @@ skip_lines_by_word_count <- function(lines, n_words = 2) {
   lines[grepl(n_select_pattern, lines)]
 }
 
+#
+# Calculate N-Grams and return phrase table
+#
 get_ngrams_table <- function(lines, n_words = 2) {
   get.phrasetable( 
     ngram(lines, n = n_words)
   )
 }
-
-

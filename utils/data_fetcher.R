@@ -17,6 +17,13 @@ get_file_name_in_data_set_folder <- function(data_set_name, locale_name = "en_US
 }
 
 #
+# Generates a filename in DataTable folder
+#
+get_file_name_in_data_table_folder <- function(data_set_name, locale_name = "en_US") {
+  sprintf("data_table/%s.%s.rds", locale_name, data_set_name)
+}
+
+#
 # Ensure all necesary DataSet files exists unpacked and ready for work
 #
 ensure_data_set_files <- function() {
