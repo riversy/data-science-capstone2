@@ -4,30 +4,21 @@ source('utils/logger.R')
 source('utils/data_fetcher.R')
 source('utils/ngrams.R')
 
-for (n_gram_index in 1:max_n_grams) {
+
+
+clean_corpus_file_names <- get_file_name_in_data_set_folder('all_clean')
+clean_head_lines <- read_lines(clean_corpus_file_names, n_max = 10)
+
+n_grams_etalon <- get_ngrams_table(clean_head_lines, 1)
+n_grams_compare <- get_empty_ngram_table()
+
+for (index in 1:10) {
   
-  sys_time <- Sys.time()
+  n_grams_line <- get_ngrams_table(clean_head_lines[index], 1)
+
+  n_grams_compare <- add_ngram_table(n_grams_compare, n_grams_line)
   
-  Logger$info(
-    sprintf("Looking for N-Grams with N = '%s'", n_gram_index)
-  )
   
-  lines <- get_raw_data('all_clean')
-  lines <- skip_lines_by_word_count(lines, n_words = n_gram_index)
-  n_grams_table <- get_ngrams_table(lines, n_words = n_gram_index)
-  rm(lines)
-  
-  n_grams_table_name <- sprintf('%s_grams', n_gram_index)
-  
-  n_grams_file_name <- get_file_name_in_data_table_folder(
-    sprintf('%s_grams', n_gram_index)
-  )
-  
-  saveRDS(n_grams_table, n_grams_table_name)
-  
-  rm(list = c('n_grams_table'))
-  
-  elapsed_time <- Sys.time() - sys_time
-  Logger$debug(sprintf("Operation took %s seconds.", elapsed_time))
+
 }
 

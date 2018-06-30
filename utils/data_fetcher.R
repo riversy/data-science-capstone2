@@ -17,7 +17,7 @@ get_file_name_in_data_set_folder <- function(data_set_name, locale_name = "en_US
 }
 
 #
-# Generates a filename in DataTable folder
+# Generates a filename in Daolder
 #
 get_file_name_in_data_table_folder <- function(data_set_name, locale_name = "en_US") {
   sprintf("data_table/%s.%s.rds", locale_name, data_set_name)
